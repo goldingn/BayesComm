@@ -9,5 +9,5 @@ Maintainer: Nick Golding
 Description: BayesComm fits Bayesian multivariate binary (probit) regression models for analysis of ecological communities.
 License: GPL (>= 2)
 Depends: Rcpp (>= 0.9.10), RcppArmadillo
-    (>= 0.3.2.4), coda
+    (>= 0.3.2.4), coda, abind, MASS
 LinkingTo: Rcpp, RcppArmadillo, coda
