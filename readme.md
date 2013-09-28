@@ -1,6 +1,6 @@
 # BayesComm
 
-GRaF is an R package for fitting species interaction distribution models using Bayesian multivariate binary (probit) regression.
+BayesComm is an R package for fitting species interaction distribution models using Bayesian multivariate binary (probit) regression.
 This is a work in progress and will be the subject of an upcoming paper. There are a number of updates planned - potentially including a change of name - so expect some fairly major changes.
 
 There is a version of BayesComm [on CRAN](http://cran.r-project.org/web/packages/BayesComm/index.html), but this is the development version so will get the updates first.
