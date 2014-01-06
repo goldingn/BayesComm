@@ -1,2 +1,2 @@
 useDynLib(BayesComm)
-export(BC, BCfit, plot.bayescomm, summary.bayescomm, print.bayescomm, window.bayescomm, residuals.bayescomm, DIC, devpart)
+export(BC, BCfit, plot.bayescomm, summary.bayescomm, print.bayescomm, window.bayescomm, residuals.bayescomm, predict.bayescomm, DIC, devpart)
