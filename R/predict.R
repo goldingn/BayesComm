@@ -7,7 +7,7 @@ predict.bayescomm <- function(object, newdata) {
   # `condition` specified.
   
   # Haven't played with any cases where mu isn't null
-  if(is.null(object$other$mu)){
+  if(!is.null(object$other$mu)){
     stop("predictions are not supported for non-null mu")
   }
   
