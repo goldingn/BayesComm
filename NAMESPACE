@@ -1,8 +1,5 @@
 useDynLib(BayesComm)
-<<<<<<< HEAD
 export(BC, BCfit, plot.bayescomm, summary.bayescomm,
        print.bayescomm, window.bayescomm, residuals.bayescomm,
        predict.bayescomm, DIC, devpart)
-=======
 export(BC, BCfit, plot.bayescomm, summary.bayescomm, print.bayescomm, window.bayescomm, residuals.bayescomm, predict.bayescomm, DIC, devpart)
->>>>>>> 21d58ba0a786d6ef57b86427119745bbdf534795

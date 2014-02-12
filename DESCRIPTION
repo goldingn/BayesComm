@@ -1,11 +1,11 @@
 Package: BayesComm
 Type: Package
 Title: Bayesian community ecology analysis
-Version: 0.1-0
-Date: 2013-05-15
-Author: Nick Golding
+Version: 0.1-1
+Date: 2014-02-12
+Author: Nick Golding and Dave Harris
 Maintainer: Nick Golding
-    <nick.golding@zoo.ox.ac.uk>
+    <nick.golding@linacre.ox.ac.uk>
 Description: BayesComm fits Bayesian multivariate binary (probit) regression
     models for analysis of ecological communities.
 License: GPL (>= 2)
@@ -15,22 +15,4 @@ Depends:
     coda,
     abind,
     mvtnorm
-LinkingTo: Rcpp, RcppArmadillo, coda
-Collate:
-    'BC.R'
-    'BCfit.R'
-    'DIC.R'
-    'devpart.R'
-    'find_trunc.R'
-    'plot.bayescomm.R'
-    'predict.R'
-    'print.bayescomm.R'
-    'residuals.bayescomm.R'
-    'rtnorm.R'
-    'rwish.R'
-    'sample_B.R'
-    'sample_R.R'
-    'sample_e.R'
-    'sample_mu.R'
-    'summary.bayescomm.R'
-    'window.bayescomm.R'
+LinkingTo: Rcpp, RcppArmadillo
