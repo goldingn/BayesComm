@@ -1,5 +1,6 @@
 \name{predict.bayescomm}
 \alias{predict.bayescomm}
+\alias{predict}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Function to make predictions at new locations
@@ -9,7 +10,7 @@ For each set of parameter values sampled by the model (including values of Z),
 simulate the occurrence probabilities for each species at each new location.
 }
 \usage{
-predict.bayescomm(object, newdata)
+predict(object, newdata, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -18,6 +19,9 @@ A bayescomm object
 }
   \item{newdata}{
 A data.frame with the same columns as X from the original BC model
+}
+  \item{...}{
+further arguments passed to or from other methods.
 }
 }
 \details{
