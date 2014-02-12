@@ -1,5 +1,5 @@
 predict.bayescomm <- function(object, newdata, ...) {
-  # Return an array of sampe probabilities at new sites.  
+  # Return an array of sample probabilities at new sites.  
   # Rows are test sites; columns are species; slices are coefficient samples
   
   
