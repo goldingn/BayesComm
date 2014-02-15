@@ -40,6 +40,7 @@ function(y, X, covlist, R, z, mu, updateR, iters, thin = 1, burn = 0, priW = c(n
   dimnames(trace_mu)[[3]] <- spnames
   
   # start sampler
+  rec <- 0 # counter for record number after burn-in and thinning
   start <- Sys.time()
   for (iter in 1:iters) {
     
@@ -59,9 +60,9 @@ function(y, X, covlist, R, z, mu, updateR, iters, thin = 1, burn = 0, priW = c(n
       iR <- chol2inv(chol(R))
     }
     
-    # record parameters    
+    # record parameters
     if (iter %% thin == 0 & iter > burn) {
-      rec <- (iter - burn) %/% thin
+      rec <- rec + 1
       output$R[rec, ] <- R[upper.tri(R)]
       output$z[rec, , ] <- z
       trace_mu[rec, , ] <- mu
