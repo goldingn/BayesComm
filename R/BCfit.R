@@ -12,14 +12,15 @@ function(y, X, covlist, R, z, mu, updateR, iters, thin = 1, burn = 0, priW = c(n
   
   # Dave asks: Should mu be in the output as well? It wasn't before, but that 
   #    may have been an oversight.
+  # Nick: It's not needed since it's just X %*% B, we could
+  #   store it for convenience but I doubt it's worth the memory used
   output <- list(
-    R = array(NA, dim = c(nsamp, ((nsp * nsp - nsp) / 2))), #w /out redundant columns 
+    R = array(NA, dim = c(nsamp, ((nsp * nsp - nsp) / 2))),
     B = NULL, 
     z = array(NA, dim = c(nsamp, n, nsp)), 
     burn = burn, 
     thin = thin
   )
-  trace_mu <- output$z
   
   for (i in 1:nsp) {
     temp <- matrix(NA, nsamp, length(covlist[[i]]))
@@ -37,7 +38,6 @@ function(y, X, covlist, R, z, mu, updateR, iters, thin = 1, burn = 0, priW = c(n
   
   colnames(output$R) <- nam[which(upper.tri(diag(nsp)))]
   dimnames(output$z)[[3]] <- spnames
-  dimnames(trace_mu)[[3]] <- spnames
   
   # start sampler
   rec <- 0 # counter for record number after burn-in and thinning
@@ -65,7 +65,6 @@ function(y, X, covlist, R, z, mu, updateR, iters, thin = 1, burn = 0, priW = c(n
       rec <- rec + 1
       output$R[rec, ] <- R[upper.tri(R)]
       output$z[rec, , ] <- z
-      trace_mu[rec, , ] <- mu
       for (i in 1:nsp) {
         output$B[[i]][rec, ] <- mulis[[2]][[i]] 
       }
