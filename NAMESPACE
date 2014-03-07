@@ -1,5 +1,6 @@
 useDynLib(BayesComm)
+import(abind, coda, mvtnorm)
 export(BC, BCfit, plot.bayescomm, summary.bayescomm,
        print.bayescomm, window.bayescomm, residuals.bayescomm,
        predict.bayescomm, DIC, devpart)
-export(BC, BCfit, plot.bayescomm, summary.bayescomm, print.bayescomm, window.bayescomm, residuals.bayescomm, predict.bayescomm, DIC, devpart)
+	   
