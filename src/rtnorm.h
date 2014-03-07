@@ -1,7 +1,7 @@
-#ifndef _BayesComm_rtnorm_B_H
-#define _BayesComm_rtnorm_B_H
+#ifndef _BayesComm_rtnorm_H
+#define _BayesComm_rtnorm_H
 
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 
 RcppExport SEXP rtnorm(SEXP N, SEXP MU, SEXP SI, SEXP LOW, SEXP UP) ;
 

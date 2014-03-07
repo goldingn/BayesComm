@@ -15,7 +15,7 @@ This package accompanies the paper (in preparation) by Golding et al. (2013) and
 Package: \tab BayesComm\cr
 Type: \tab Package\cr
 Version: \tab 0.1-1\cr
-Date: \tab 2014-02-12\cr
+Date: \tab 2014-03-07\cr
 License: \tab GPL (>=2)\cr
 }
 

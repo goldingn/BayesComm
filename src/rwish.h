@@ -1,5 +1,5 @@
-#ifndef _BayesComm_rwish_B_H
-#define _BayesComm_rwish_B_H
+#ifndef _BayesComm_rwish_H
+#define _BayesComm_rwish_H
 
 #include <RcppArmadillo.h>
 

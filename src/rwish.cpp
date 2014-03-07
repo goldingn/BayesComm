@@ -1,6 +1,6 @@
 #include "rwish.h"
 
-using namespace Rcpp ;
+using namespace Rcpp;
 
 SEXP rwish(SEXP s, SEXP DF){
 

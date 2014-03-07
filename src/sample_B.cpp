@@ -1,6 +1,6 @@
 #include "sample_B.h"
 
-using namespace Rcpp ;
+using namespace Rcpp;
 
 SEXP sample_B(SEXP Z, SEXP x){
 

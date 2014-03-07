@@ -2,7 +2,7 @@ Package: BayesComm
 Type: Package
 Title: Bayesian community ecology analysis
 Version: 0.1-1
-Date: 2014-02-12
+Date: 2014-03-07
 Author: Nick Golding and David J. Harris
 Maintainer: Nick Golding
     <nick.golding@zoo.ox.ac.uk>
@@ -13,4 +13,4 @@ Imports:
 	abind,
 	coda,
 	mvtnorm
-LinkingTo: Rcpp (>= 0.9.10), RcppArmadillo (>= 0.3.2.4)
+LinkingTo: Rcpp, RcppArmadillo

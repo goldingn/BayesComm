@@ -1,6 +1,6 @@
 #include "rtnorm.h"
 
-using namespace Rcpp ;
+using namespace Rcpp;
 
 SEXP rtnorm(SEXP N, SEXP MU, SEXP SI, SEXP LOW, SEXP UP){
 
