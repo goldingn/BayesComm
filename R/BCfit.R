@@ -1,5 +1,5 @@
 BCfit <-
-function(y, X, covlist, R, z, mu, updateR, iters, thin = 1, burn = 0, priW = c(nrow(z) + 2 * ncol(z), 2 * ncol(z))) {
+function(y, X, covlist, R, z, mu, updateR, iters, thin = 1, burn = 0, priW = c(nrow(z) + 2 * ncol(z), 2 * ncol(z)), verbose = 0) {
   
   spnames <- colnames(y)
   y <- t(y)         # NOTE: y is transposed relative to the input!
@@ -60,8 +60,18 @@ function(y, X, covlist, R, z, mu, updateR, iters, thin = 1, burn = 0, priW = c(n
       iR <- chol2inv(chol(R))
     }
     
+    if(verbose == 2){
+      message(iter)
+    }
+    if(verbose > 0 & iter == burn){
+      message("burn-in complete")
+    }
+    
     # record parameters
     if (iter %% thin == 0 & iter > burn) {
+      if(verbose == 1){
+        message(iter)
+      }
       rec <- rec + 1
       output$R[rec, ] <- R[upper.tri(R)]
       output$z[rec, , ] <- z
