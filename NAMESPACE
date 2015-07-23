@@ -1,5 +1,7 @@
 import(Rcpp, abind, coda, mvtnorm)
-importFrom(stats, window)
+importFrom('graphics', 'plot')
+importFrom('stats', 'window', 'cov', 'cov2cor', 'pnorm', 'qnorm', 'quantile')
+
 useDynLib(BayesComm)
 
 S3method(plot, bayescomm)

@@ -13,7 +13,12 @@ function (x, start = NULL, end = NULL, thin = 1, ...) {
     thin <- oldthin
   }
   trim <- function(x, start, end, thin, oldstart, oldthin) {
-    as.matrix(window(mcmc(x, start = oldstart, thin = oldthin), start, end, thin))
+    suppressWarnings(as.matrix(window(x = mcmc(x,
+                                               start = oldstart,
+                                               thin = oldthin),
+                                      start = start,
+                                      end  = end,
+                                      thin = thin)))
   }
   x$trace$R <- trim(x$trace$R, start, end, thin, oldstart, oldthin) 
   x$trace$z <- apply(x$trace$z, c(2, 3), trim, start, end, thin, oldstart, oldthin)
