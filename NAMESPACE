@@ -1,4 +1,4 @@
-import(Rcpp, evalCpp, abind, coda, mvtnorm)
+import(Rcpp, abind, coda, mvtnorm)
 useDynLib(BayesComm)
 export(BC, BCfit, plot.bayescomm, summary.bayescomm,
        print.bayescomm, window.bayescomm, residuals.bayescomm,
