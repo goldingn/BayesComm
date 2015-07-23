@@ -1,5 +1,12 @@
 import(Rcpp, abind, coda, mvtnorm)
+importFrom(stats, window)
 useDynLib(BayesComm)
-export(BC, BCfit, plot.bayescomm, summary.bayescomm,
-       print.bayescomm, window.bayescomm, residuals.bayescomm,
-       predict.bayescomm, DIC, devpart)
+
+S3method(plot, bayescomm)
+S3method(summary, bayescomm)
+S3method(print, bayescomm)
+S3method(window, bayescomm)
+S3method(residuals, bayescomm)
+S3method(predict, bayescomm)
+
+export(BC, BCfit, DIC, devpart)
