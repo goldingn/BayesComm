@@ -1,4 +1,4 @@
-[![CRAN version](http://www.r-pkg.org/badges/version/BayesComm](http://www.r-pkg.org/pkg/BayesComm)
+[![CRAN version](http://www.r-pkg.org/badges/version/BayesComm)](http://www.r-pkg.org/pkg/BayesComm)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/BayesComm)](http://www.r-pkg.org/pkg/BayesComm)
 
 # BayesComm
