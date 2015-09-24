@@ -1,3 +1,6 @@
+[![CRAN version](http://www.r-pkg.org/badges/version/BayesComm](http://www.r-pkg.org/pkg/BayesComm)
+[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/BayesComm)](http://www.r-pkg.org/pkg/BayesComm)
+
 # BayesComm
 
 BayesComm is an R package for fitting species interaction distribution models using Bayesian multivariate binary (probit) regression.
