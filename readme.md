@@ -1,5 +1,6 @@
 [![CRAN version](http://www.r-pkg.org/badges/version/BayesComm)](http://www.r-pkg.org/pkg/BayesComm)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/BayesComm)](http://www.r-pkg.org/pkg/BayesComm)
+[![Research software impact](http://depsy.org/api/package/cran/BayesComm/badge.svg)](http://depsy.org/package/r/BayesComm)
 
 # BayesComm
 
