@@ -6,11 +6,17 @@ function(Y, X = NULL, model = 'null', covlist = NULL, condition = NULL, its = 10
   if (!(is.null(X) | is.matrix(X))) {
     stop("X must be a matrix or null")
   }
-  
+
+  if (!is.null(list(...)$updateMu)) {
+    stop("updateMu cannot be passed to BC; use BCfit instead")
+  }
+
+
+
   n <- nrow(Y)
   nsp <- ncol(Y)
   Xname <- colnames(X)
-  
+
   if (model %in% c('null', 'environment', 'community', 'full')) {
     if (model == 'null') {
       X <- matrix(1, n, 1)
@@ -30,7 +36,7 @@ function(Y, X = NULL, model = 'null', covlist = NULL, condition = NULL, its = 10
   } else {
     stop ("model must be one of: 'null', 'environment', 'community' or  'full'")
   }
-  
+
   k <- ncol(X)
   # matrix column names
   if (is.matrix(X) & is.null(Xname)) {
@@ -40,7 +46,7 @@ function(Y, X = NULL, model = 'null', covlist = NULL, condition = NULL, its = 10
   if(is.null(colnames(Y))) {
     colnames(Y) <- paste("sp", 1:ncol(Y), sep = "")
   }
-  
+
   # covariate list
   if (is.null(covlist)) {  # if null, add them all
     for (i in 1:nsp) {
@@ -59,7 +65,7 @@ function(Y, X = NULL, model = 'null', covlist = NULL, condition = NULL, its = 10
   if (max(unlist(lapply(covlist, max))) > k) {
     stop ("covlist index out of range of covariates")
   }
-  
+
   if (!is.null(condition)) {
     if(!is.matrix(condition)){
       stop("condition must be a matrix or null")
@@ -75,21 +81,32 @@ function(Y, X = NULL, model = 'null', covlist = NULL, condition = NULL, its = 10
 
   # initialise mu at species prevalence
   mu <- qnorm(rowMeans(t(Y)))
-  mu <- matrix(rep(mu, n), n, nsp, byrow = TRUE) 
-  
+  mu <- matrix(rep(mu, n), n, nsp, byrow = TRUE)
+
   # initialise z - just on the right side of 0
   trunc <- find_trunc(mu, t(Y))
   e <- matrix(0, n, nsp)
   e <- ifelse(trunc[, , 1] == -Inf, trunc[, , 2] - 1, trunc[, , 1] + 1)
   e <- sample_e(e, trunc, diag(nsp))
   z <- mu + e
-  
+
   # initialise R
   W <- cov(e)
   if (!updateR) W <- diag(nsp)
   R <- cov2cor(W)
-  
-  reslis <- BCfit(Y, X, covlist, R, z, mu, updateR, its, ...)
+
+  reslis <- BCfit(
+    y = Y,
+    X = X,
+    covlist = covlist,
+    R = R,
+    z = z,
+    mu = mu,
+    updateR = updateR,
+    updateMu = updateMu,
+    iters = its,
+    ...
+  )
 
   res <- NULL
   res$trace <- list(R = reslis$R, B = reslis$B, z = reslis$z)
