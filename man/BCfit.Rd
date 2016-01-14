@@ -11,7 +11,8 @@ It is highly recommended to use the wrapper function \code{\link{BC}} which chec
 }
 \usage{
 BCfit(y, X, covlist, R, z, mu, updateR, iters, thin = 1, burn = 0,
-	priW = c(nrow(z) + 2 * ncol(z), 2 * ncol(z)), verbose = 0)
+	priW = c(nrow(z) + 2 * ncol(z), 2 * ncol(z)), updateMu = TRUE, 
+	verbose = 0)
 }
 
 \arguments{
@@ -47,6 +48,10 @@ number of iterations to discard at the beginning of the chain
 }
   \item{priW}{
 prior specification for correlation matrix W
+}
+  \item{updateMu}{
+logical; if true, the mean matrix is updated; if false, it is fixed
+at \code{mu} and \code{B} is not estimated. Defaults to \code{TRUE}.
 }
   \item{verbose}{
 how often to print updates to the console.  \code{0} for no updates. \code{1} for
