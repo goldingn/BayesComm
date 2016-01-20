@@ -103,7 +103,6 @@ function(Y, X = NULL, model = 'null', covlist = NULL, condition = NULL, its = 10
     z = z,
     mu = mu,
     updateR = updateR,
-    updateMu = updateMu,
     iters = its,
     ...
   )

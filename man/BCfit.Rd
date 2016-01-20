@@ -52,7 +52,7 @@ prior specification for correlation matrix W
   \item{updateMu}{
 logical; if true, the mean matrix is updated; if false, it is fixed
 at \code{mu} (and \code{B} is not estimated). Defaults to \code{TRUE}. Note that 
-this argument cannot be passed from \link{\code{BC}}; it can only used in 
+this argument cannot be passed from \code{\link{BC}}; it can only used in 
 \code{BCfit} directly
 }
   \item{verbose}{
