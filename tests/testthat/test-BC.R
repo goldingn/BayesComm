@@ -60,16 +60,15 @@ test_that("true parameters are recovered", {
 
 
 test_that("true probabilities are recovered", {
-  p_array <- predict(m1, X[, -1])
-  
-  marginal_p <- apply(p_array, 2, rowMeans)
+  marginal_p <- predict(m1, X[, -1])
   
   # If the prediction code is correct, there shouldn't be any improvement after
   # accounting for the offset
-  prediction_lm <- lm(
-    c(qnorm(p)) ~ c(qnorm(marginal_p)) + offset(c(qnorm(marginal_p)))
+  prediction_glm <- glm(
+    c(Y) ~ c(qnorm(marginal_p)) + offset(c(qnorm(marginal_p))),
+    family = binomial(link = "probit")
   )
   
   # expect large p-values, fail to reject
-  expect_true(all(coef(summary(prediction_lm))[ , 4] > .01))
+  expect_true(all(coef(summary(prediction_glm))[ , 4] > .01))
 })
