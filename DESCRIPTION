@@ -9,5 +9,6 @@ Maintainer: Nick Golding
 Description: Bayesian multivariate binary (probit) regression
     models for analysis of ecological communities.
 License: GPL (>= 2)
-Imports: Rcpp (>= 0.11.6), abind, coda, mvtnorm
+Imports: Rcpp (>= 0.11.6), abind, coda, mvtnorm, progress
+Suggests: testthat
 LinkingTo: Rcpp, RcppArmadillo
