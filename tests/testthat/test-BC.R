@@ -1,5 +1,7 @@
 context("BC results match true values")
 
+# (Based on code from `example(BayesComm)`)
+
 set.seed(1)
 
 # create fake data
@@ -25,10 +27,21 @@ z <- mu + e  # true z
 
 Y <- ifelse(z > 0, 1, 0)  # true presence/absence
 
+# Fit a glm to Y with an offset equal to probit(p).
+# There should be no evidence that adding an intercept or a different slope
+# improves the relationship between Y and p
+p_glm <- glm(
+  c(Y) ~ c(qnorm(p)) + offset(c(qnorm(p))), 
+  family = binomial(link = "probit")
+)
+p_values <- summary(p_glm)$coefficients[ , 4]
+expect_true(all(p_values > .01)) # Expect large p-values
+
+
 
 
 # run BC (after removing intercept column from design matrix)
-m1 <- BC(Y, X[, -1], model = "full", its = 500)
+m1 <- BC(Y, X[, -1], model = "full", its = 1000)
 
 
 
@@ -43,4 +56,19 @@ test_that("true parameters are recovered", {
   expect_true(
     mean(R_diff)^2 / var(R[upper.tri(R)]) < .01
   )
+})
+
+
+test_that("true probabilities are recovered", {
+  marginal_p <- predict(m1, X[, -1])
+  
+  # If the prediction code is correct, there shouldn't be any improvement after
+  # accounting for the offset
+  prediction_glm <- glm(
+    c(Y) ~ c(qnorm(marginal_p)) + offset(c(qnorm(marginal_p))),
+    family = binomial(link = "probit")
+  )
+  
+  # expect large p-values, fail to reject
+  expect_true(all(coef(summary(prediction_glm))[ , 4] > .01))
 })
