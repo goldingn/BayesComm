@@ -19,22 +19,18 @@ function(y, X, covlist, R, z, mu, updateR, iters, thin = 1, burn = 0, priW = c(n
   
   nsamp <- (iters - burn) %/% thin
   
-  # Dave asks: Should mu be in the output as well? It wasn't before, but that 
-  #    may have been an oversight.
-  # Nick: It's not needed since it's just X %*% B, we could
-  #   store it for convenience but I doubt it's worth the memory used
-  output <- list(
+  chain_info <- list(burn = burn, thin = thin)
+  
+  trace <- list(
     R = array(NA, dim = c(nsamp, ((nsp * nsp - nsp) / 2))),
     B = NULL, 
-    z = array(NA, dim = c(nsamp, n, nsp)), 
-    burn = burn, 
-    thin = thin
+    z = array(NA, dim = c(nsamp, n, nsp))
   )
   
   for (i in 1:nsp) {
     temp <- matrix(NA, nsamp, length(covlist[[i]]))
     colnames(temp) <- colnames(X)[covlist[[i]]]
-    output$B[[spnames[i]]] <- temp
+    trace$B[[spnames[i]]] <- temp
   }
   rm(temp)
   
@@ -45,12 +41,11 @@ function(y, X, covlist, R, z, mu, updateR, iters, thin = 1, burn = 0, priW = c(n
     }
   }
   
-  colnames(output$R) <- nam[which(upper.tri(diag(nsp)))]
-  dimnames(output$z)[[3]] <- spnames
+  colnames(trace$R) <- nam[which(upper.tri(diag(nsp)))]
+  dimnames(trace$z)[[3]] <- spnames
   
   # start sampler
   rec <- 0 # counter for record number after burn-in and thinning
-  start <- Sys.time()
   for (iter in 1:iters) {
     
     # get truncation values and sample z
@@ -82,13 +77,21 @@ function(y, X, covlist, R, z, mu, updateR, iters, thin = 1, burn = 0, priW = c(n
         message(iter)
       }
       rec <- rec + 1
-      output$R[rec, ] <- R[upper.tri(R)]
-      output$z[rec, , ] <- z
+      trace$R[rec, ] <- R[upper.tri(R)]
+      trace$z[rec, , ] <- z
       for (i in 1:nsp) {
-        output$B[[i]][rec, ] <- mulis[[2]][[i]] 
+        trace$B[[i]][rec, ] <- mulis[[2]][[i]] 
       }
     }
   }  # sampler
   
-  output
+  out = list(
+    trace = trace,
+    call = list(model = NULL, Y = y, X = X, covlist = covlist, its = iters,
+                     start = chain_info$burn + 1, thin = chain_info$thin)
+  )
+  
+  class(out) <- "bayescomm"
+  
+  out
 }
