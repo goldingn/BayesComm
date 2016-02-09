@@ -89,13 +89,8 @@ function(Y, X = NULL, model = 'null', covlist = NULL, condition = NULL, its = 10
   if (!updateR) W <- diag(nsp)
   R <- cov2cor(W)
   
-  reslis <- BCfit(Y, X, covlist, R, z, mu, updateR, its, ...)
-
-  res <- NULL
-  res$trace <- list(R = reslis$R, B = reslis$B, z = reslis$z)
-  res$call <- list(model = model, Y = Y, X = X, covlist = covlist, its = its,
-                   start = reslis$burn + 1, thin = reslis$thin)
-  res$other <- list(mu = reslis$mu)
-  class(res) <- "bayescomm"
-  res
+  out <- BCfit(Y, X, covlist, R, z, mu, updateR, its, ...)
+  out$call$model <- model
+  
+  out
 }
