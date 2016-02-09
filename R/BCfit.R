@@ -1,5 +1,5 @@
 BCfit <-
-function(y, X, covlist, R, z, mu, updateR, iters, thin = 1, burn = 0, priW = c(nrow(z) + 2 * ncol(z), 2 * ncol(z)), verbose = 0) {
+function(y, X, covlist, R, z, mu, updateR, iters, thin = 1, burn = 0, priW = c(nrow(z) + 2 * ncol(z), 2 * ncol(z)), updateMu = TRUE, verbose = 0) {
   
   broken = which(diag(var(y)) == 0)
   
@@ -19,6 +19,8 @@ function(y, X, covlist, R, z, mu, updateR, iters, thin = 1, burn = 0, priW = c(n
   
   nsamp <- (iters - burn) %/% thin
   
+  stopifnot(nsamp > 0)
+  
   # Dave asks: Should mu be in the output as well? It wasn't before, but that 
   #    may have been an oversight.
   # Nick: It's not needed since it's just X %*% B, we could
@@ -31,12 +33,15 @@ function(y, X, covlist, R, z, mu, updateR, iters, thin = 1, burn = 0, priW = c(n
     thin = thin
   )
   
-  for (i in 1:nsp) {
-    temp <- matrix(NA, nsamp, length(covlist[[i]]))
-    colnames(temp) <- colnames(X)[covlist[[i]]]
-    output$B[[spnames[i]]] <- temp
+  
+  if (updateMu) {
+    for (i in 1:nsp) {
+      temp <- matrix(NA, nsamp, length(covlist[[i]]))
+      colnames(temp) <- colnames(X)[covlist[[i]]]
+      output$B[[spnames[i]]] <- temp
+    }
+    rm(temp)
   }
-  rm(temp)
   
   nam <- rep(NA, n * n)
   for (i in 1:nsp) {
@@ -59,8 +64,10 @@ function(y, X, covlist, R, z, mu, updateR, iters, thin = 1, burn = 0, priW = c(n
     z <- mu + e
     
     # sample mu and calculate e
-    mulis<- sample_mu(z, X, covlist)
-    mu <- mulis[[1]]
+    if (updateMu) {
+      mulis <- sample_mu(z, X, covlist)
+      mu <- mulis[[1]]
+    }
     e <- z - mu
     
     # sample R
@@ -84,8 +91,10 @@ function(y, X, covlist, R, z, mu, updateR, iters, thin = 1, burn = 0, priW = c(n
       rec <- rec + 1
       output$R[rec, ] <- R[upper.tri(R)]
       output$z[rec, , ] <- z
-      for (i in 1:nsp) {
-        output$B[[i]][rec, ] <- mulis[[2]][[i]] 
+      if (updateMu) { 
+        for (i in 1:nsp) {
+          output$B[[i]][rec, ] <- mulis[[2]][[i]] 
+        }
       }
     }
   }  # sampler
