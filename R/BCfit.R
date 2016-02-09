@@ -1,6 +1,15 @@
 BCfit <-
 function(y, X, covlist, R, z, mu, updateR, iters, thin = 1, burn = 0, priW = c(nrow(z) + 2 * ncol(z), 2 * ncol(z)), updateMu = TRUE, verbose = 0) {
   
+  broken = which(diag(var(y)) == 0)
+  
+  if (any(diag(var(y)) == 0)) {
+    stop("No variation in y for species", paste(broken, collapse = ", "), 
+         "; correlation not defined")
+  }
+  
+  stopifnot(all(is.finite(X)), all(is.finite(y)))
+    
   spnames <- colnames(y)
   y <- t(y)         # NOTE: y is transposed relative to the input!
   nsp <- dim(y)[1]  # number of species
