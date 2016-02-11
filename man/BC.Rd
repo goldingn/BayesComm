@@ -52,14 +52,16 @@ An object of class \code{bayescomm} containing the model call and parameter chai
 }
 \examples{
 # create fake data
-n <- 100
+n <- 500
 nsp <- 4
 k <- 3
 
 X <- matrix(c(rep(1, n), rnorm(n * k)), n)  # covariate matrix
-W <- matrix(rnorm(nsp * nsp), nsp)
-W <- W \%*\% t(W) / 2  # true covariance matrix
-B <- matrix(rnorm(nsp * (k + 1), 0, 3), nsp)  # true covariates
+
+# Random covariance matrix
+W <- 10 * solve(rWishart(1, nsp + 1, diag(nsp))[ , , 1])
+
+B <- matrix(rnorm(nsp * (k + 1), 0, 1), nsp)  # true covariates
 mu <- apply(B, 1, function(b, x) x \%*\% b, X)  # true mean
 e <- matrix(rnorm(n * nsp), n) \%*\% chol(W)  # true e
 z <- mu + e  # true z
