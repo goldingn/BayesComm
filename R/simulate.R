@@ -20,7 +20,6 @@ simulate.bayescomm <- function(object, nsim = NULL, seed = NULL,
    
   indices <- sample.int(nrow(object$trace$R), nsim, replace = replace)
    
-  
   if (!is.null(object$other$mu)){
     stop("predictions are not supported for non-null mu")
   }
@@ -30,10 +29,10 @@ simulate.bayescomm <- function(object, nsim = NULL, seed = NULL,
   
   val <- array(NA, dim = c(nsim, dim(object$call$Y)))
   
-  for (i in indices) {
-    print(i)
-    R <- upper2cor(object$trace$R[i, ])
-    z <- X %*% B[i, , ] + mvtnorm::rmvnorm(nrow(X), sigma = R)
+  for (i in 1:length(indices)) {
+    index = indices[i]
+    R <- upper2cor(object$trace$R[index, ])
+    z <- X %*% B[index, , ] + mvtnorm::rmvnorm(nrow(X), sigma = R)
     val[i, , ] <- ifelse(z > 0, 1, 0)
   }
 

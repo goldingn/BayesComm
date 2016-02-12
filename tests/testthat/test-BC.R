@@ -72,3 +72,4 @@ test_that("true probabilities are recovered", {
   # expect large p-values, fail to reject
   expect_true(all(coef(summary(prediction_glm))[ , 4] > .01))
 })
+
