@@ -3,7 +3,7 @@ context("simulate & evaluate")
 set.seed(1)
 
 # create fake data
-n <- 1E3
+n <- 5E3
 nsp <- 3
 
 W <- solve(rWishart(1, 10 + nsp, diag(nsp))[ , , 1])
