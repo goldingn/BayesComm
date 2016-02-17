@@ -21,7 +21,7 @@ logLik.bayescomm <- function(model, newdata, y, thin = 1){
     format = ":current / :total  [:bar] :percent eta: :eta",
     total = nrow(newdata) * length(indices), clear = FALSE, width = 60)
   
-  sapply(
+  likelihood = sapply(
     indices,
     function(i){
       mean.matrix <- x %*% B[i, , ]
@@ -36,10 +36,11 @@ logLik.bayescomm <- function(model, newdata, y, thin = 1){
             upper = upper[j, ], 
             mean = mean.matrix[j, ], 
             corr = R
-          ) 
+          )
         }
       )
     }
   )
+  log(likelihood)
 }
 
