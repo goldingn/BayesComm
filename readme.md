@@ -29,4 +29,4 @@ library(BayesComm)
 ```
 
 ### reporting bugs
-If you find a bug in the code or have suggestions for improvements, please let me know via the issues reporting system (button on the right of this page).
+If you find a bug in the code or have suggestions for improvements, please let me know via [the issues reporting system](https://github.com/goldingn/BayesComm/issues)
