@@ -7,6 +7,10 @@ logLik.bayescomm <- function(model, newdata, y, thin = 1){
     x <- cbind(1, newdata)
   }
   
+  if (missing(y)) {
+     y <- model$call$Y
+  }
+  
   B <- bindSpeciesCoefficients(model)
   
   lower = ifelse(y, 0, -Inf)
