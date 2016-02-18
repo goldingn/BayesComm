@@ -11,16 +11,15 @@ predict.bayescomm <- function(object, newdata, ...) {
   X <- cbind(intercept = 1, newdata)
   B <- bindSpeciesCoefficients(object)
   
-  predictions <- matrix(
-    0, 
-    nrow = nrow(X), 
-    ncol = dim(B)[3], 
-    dimnames = list(row.names(X), dimnames(B)[[3]])
+  predictions <- array(
+    NA, 
+    c(nrow(X), dim(B)[3], dim(B)[1]),
+    dimnames = list(row.names(X), dimnames(B)[[3]], NULL)
   )
   
   
   for (i in 1:nrow(B)) {
-    predictions <- predictions + pnorm(X %*% B[i, , ]) / nrow(B)
+    predictions[ , , i] <- pnorm(X %*% B[i, , ])
   }
   
   predictions

@@ -60,7 +60,11 @@ test_that("true parameters are recovered", {
 
 
 test_that("true probabilities are recovered", {
-  marginal_p <- predict(m1, X[, -1])
+  marginal_p <- apply(
+    predict(m1, X[, -1]),
+    1:2,
+    mean
+  )
   
   # If the prediction code is correct, there shouldn't be any improvement after
   # accounting for the offset
